@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 
 //adding the View.OnClickListener to allow selection of textview
@@ -102,6 +103,10 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                     when{
                         mCurrentPosition <= mQuestionsList!!.size ->{
                             setQuestion()
+                        }
+
+                        else-> {
+                            Toast.makeText(this, "You Made it To the end", Toast.LENGTH_SHORT)
                         }
                     }
                 }else
@@ -208,7 +213,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         //since the image is saved as an int
         ivImage?.setImageResource(question.image)
         progressBar?.progress = mCurrentPosition
-        tvProgressbar?.text = "${mCurrentPosition + 1} / ${progressBar?.max}"
+        tvProgressbar?.text = "${mCurrentPosition} / ${progressBar?.max}"
         tvQuestion?.text = question.question
         tvAnswerZero?.text = question.optionZero
         tvAnswerOne?.text = question.optionOne
