@@ -32,6 +32,21 @@ class QuizQuestionActivity : AppCompatActivity() {
         tvAnswerThree = findViewById(R.id.tvOptionThree)
         tvAnswerFour = findViewById(R.id.tvOptionFour)
 
+        val questionList = Constants.getQuestions()
+        var currentPosition = 0
+
+        val question: Question = questionList[currentPosition]
+
+        //since the image is saved as an int
+        ivImage?.setImageResource(question.image)
+        progressBar?.progress = currentPosition
+        tvProgressbar?.text = "${currentPosition + 1} / ${progressBar?.max}"
+        tvQuestion?.text = question.question
+        tvAnswerZero?.text = question.optionZero
+        tvAnswerOne?.text = question.optionOne
+        tvAnswerTwo?.text = question.optionTwo
+        tvAnswerThree?.text = question.optionThree
+        tvAnswerFour?.text = question.optionFour
 
     }
 }
