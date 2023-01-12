@@ -2,11 +2,20 @@ package com.example.quiz_app_
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 
-class QuizQuestionActivity : AppCompatActivity() {
+//adding the View.OnClickListener to allow selection of textview
+//Must implement override of onClick
+class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
+
+    private var mCurrentPosition: Int = 0
+    private var mQuestionsList: ArrayList<Question>? = null
+    private var mSelectedAnswer: Int = 0
+
     private var progressBar: ProgressBar? = null
     private var tvProgressbar: TextView? = null
     private var tvQuestion: TextView? = null
@@ -17,6 +26,7 @@ class QuizQuestionActivity : AppCompatActivity() {
     private var tvAnswerTwo: TextView? = null
     private var tvAnswerThree: TextView? = null
     private var tvAnswerFour: TextView? = null
+    private var btnSubmit: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,22 +41,30 @@ class QuizQuestionActivity : AppCompatActivity() {
         tvAnswerTwo = findViewById(R.id.tvOptionTwo)
         tvAnswerThree = findViewById(R.id.tvOptionThree)
         tvAnswerFour = findViewById(R.id.tvOptionFour)
+        btnSubmit = findViewById(R.id.submitBtn)
 
-        val questionList = Constants.getQuestions()
-        var currentPosition = 0
+        mQuestionsList = Constants.getQuestions()
+        setQuestion()
+    }
 
-        val question: Question = questionList[currentPosition]
+    override fun onClick(p0: View?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun setQuestion()
+    {
+        //!! is the not-null operator that converts any value to a non-null type.
+        val question: Question = mQuestionsList!![mCurrentPosition]
 
         //since the image is saved as an int
         ivImage?.setImageResource(question.image)
-        progressBar?.progress = currentPosition
-        tvProgressbar?.text = "${currentPosition + 1} / ${progressBar?.max}"
+        progressBar?.progress = mCurrentPosition
+        tvProgressbar?.text = "${mCurrentPosition + 1} / ${progressBar?.max}"
         tvQuestion?.text = question.question
         tvAnswerZero?.text = question.optionZero
         tvAnswerOne?.text = question.optionOne
         tvAnswerTwo?.text = question.optionTwo
         tvAnswerThree?.text = question.optionThree
         tvAnswerFour?.text = question.optionFour
-
     }
 }
