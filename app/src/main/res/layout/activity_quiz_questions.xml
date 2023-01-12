@@ -66,7 +66,62 @@
                 android:text="0/9"
                 />
         </LinearLayout>
-
+        
+        <TextView
+            android:id="@+id/tvOptionZero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/blue_grey"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textSize="18sp"
+            tools:text="Placeholder"
+            />
+        <TextView
+            android:id="@+id/tvOptionOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/blue_grey"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textSize="18sp"
+            tools:text="Placeholder"
+            />
+        <TextView
+            android:id="@+id/tvOptionTwo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/blue_grey"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textSize="18sp"
+            tools:text="Placeholder"
+            />
+        <TextView
+            android:id="@+id/tvOptionThree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/blue_grey"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textSize="18sp"
+            tools:text="Placeholder"
+            />
+        <TextView
+            android:id="@+id/tvOptionFour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/blue_grey"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textSize="18sp"
+            tools:text="Placeholder"
+            />
 
     </LinearLayout>
 
