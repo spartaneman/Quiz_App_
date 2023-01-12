@@ -18,7 +18,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     //Control values of the current questions and questions
     private var mCurrentPosition: Int = 0
     private var mQuestionsList: ArrayList<Question>? = null
-    private var mSelectedAnswer: Int = 0
+    private var mSelectedAnswer: Int = -1
 
     private var progressBar: ProgressBar? = null
     private var tvProgressbar: TextView? = null
@@ -91,7 +91,63 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.submitBtn ->{
-                //TODO
+                //This checks that an answer has been chosen since mSelectedAnswer will be reset to
+                //-1 after answering the question
+                if(mSelectedAnswer == -1)
+                {
+                    mCurrentPosition++
+
+                    //Here we will set the textviews to match the current question as
+                    //long as the list contains questions
+                    when{
+                        mCurrentPosition <= mQuestionsList!!.size ->{
+                            setQuestion()
+                        }
+                    }
+                }else
+                {
+                    //else we are going to check the the answer is correct or not
+                    val question = mQuestionsList?.get(mCurrentPosition)
+                    //if the value matches what was selected then the text view will turn green and
+                    //red if incorrect
+                    if(question!!.correctAnswer != mSelectedAnswer)
+                    {
+                        answerView(mSelectedAnswer, R.drawable.wrong_answer_background)
+                    }
+                    mSelectedAnswer=-1
+                    if(mCurrentPosition == mQuestionsList!!.size-1)
+                    {
+                        btnSubmit?.setText("Finish")
+                    }
+                    else
+                    {
+                        btnSubmit?.setText("Next Question")
+                    }
+
+                }
+            }
+        }
+    }
+
+    //change the view passing in the answer location and background
+    private fun answerView(answer: Int, drawableView: Int)
+    {
+        when(answer)
+        {
+            0-> {
+                tvAnswerZero?.background = ContextCompat.getDrawable(this, drawableView)
+            }
+            1-> {
+                tvAnswerOne?.background = ContextCompat.getDrawable(this, drawableView)
+            }
+            2-> {
+                tvAnswerTwo?.background = ContextCompat.getDrawable(this, drawableView)
+            }
+            3-> {
+                tvAnswerThree?.background = ContextCompat.getDrawable(this, drawableView)
+            }
+            4-> {
+                tvAnswerFour?.background = ContextCompat.getDrawable(this, drawableView)
             }
         }
     }
@@ -145,6 +201,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     //this will set the text and images according to the current position in the question ArrayList
     private fun setQuestion()
     {
+        defaultAnswersView()
         //!! is the not-null operator that converts any value to a non-null type.
         val question: Question = mQuestionsList!![mCurrentPosition]
 
