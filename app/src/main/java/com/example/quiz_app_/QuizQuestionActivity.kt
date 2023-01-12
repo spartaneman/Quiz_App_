@@ -47,13 +47,53 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         tvAnswerFour = findViewById(R.id.tvOptionFour)
         btnSubmit = findViewById(R.id.submitBtn)
 
+        //must set the textviews to onClickListeners
+        tvAnswerZero?.setOnClickListener(this)
+        tvAnswerOne?.setOnClickListener(this)
+        tvAnswerTwo?.setOnClickListener(this)
+        tvAnswerThree?.setOnClickListener(this)
+        tvAnswerFour?.setOnClickListener(this)
+        btnSubmit?.setOnClickListener(this)
+
         mQuestionsList = Constants.getQuestions()
         setQuestion()
         defaultAnswersView()
     }
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+    //Must override to create the Textviews to be selectable
+    override fun onClick(view: View?) {
+        when(view?.id)
+        {
+            R.id.tvOptionZero -> {
+                tvAnswerZero?.let {
+                    selectedAnswerView(it, 0)
+                }
+            }
+
+            R.id.tvOptionOne -> {
+                tvAnswerOne?.let {
+                    selectedAnswerView(it, 1)
+                }
+            }
+            R.id.tvOptionTwo -> {
+                tvAnswerTwo?.let {
+                    selectedAnswerView(it, 2)
+                }
+            }
+            R.id.tvOptionThree -> {
+                tvAnswerThree?.let {
+                    selectedAnswerView(it, 3)
+                }
+            }
+            R.id.tvOptionFour -> {
+                tvAnswerFour?.let {
+                    selectedAnswerView(it, 4)
+                }
+            }
+            R.id.submitBtn ->{
+                //TODO
+            }
+        }
     }
 
     //This function creates the default look of the textview buttons.
@@ -81,6 +121,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         for(answer in answers)
         {
             //This will be the default options
+            //Not sure what the ContextCompat is.
             answer.setTextColor(Color.parseColor("#8A2308"))
             answer.typeface = Typeface.DEFAULT
             answer.background = ContextCompat.getDrawable(this,R.drawable.answer_textview)
@@ -88,9 +129,17 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //This function will change the view of the selected textview
-    private fun selectedAnswerView(tview: TextView)
+    private fun selectedAnswerView(tView: TextView, selectedAnswerValue: Int)
     {
+        //This will turn all the Textviews back to normal
+        defaultAnswersView()
 
+        mSelectedAnswer = selectedAnswerValue
+
+        //Here we change the textview of the selected textview
+        tView.setTextColor(Color.parseColor("#363A43"))
+        tView.setTypeface(tView.typeface, Typeface.BOLD)
+        tView.background = ContextCompat.getDrawable(this, R.drawable.selected_border_background)
     }
 
     //this will set the text and images according to the current position in the question ArrayList
