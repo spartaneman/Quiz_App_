@@ -20,7 +20,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Quiz_Questions"
+            android:name=".QuizQuestionActivity"
             android:exported="false"
             android:label="@string/title_activity_quiz_questions"
             android:theme="@style/Theme.Quiz_App_.NoActionBar">
