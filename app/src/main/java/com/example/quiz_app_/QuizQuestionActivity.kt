@@ -1,5 +1,6 @@
 package com.example.quiz_app_
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private var mCurrentPosition: Int = 0
     private var mQuestionsList: ArrayList<Question>? = null
     private var mSelectedAnswer: Int = -1
+    private var correctAnswers: Int = 0
 
     private var progressBar: ProgressBar? = null
     private var tvProgressbar: TextView? = null
@@ -33,9 +35,14 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private var tvAnswerFour: TextView? = null
     private var btnSubmit: Button? = null
 
+    private var userName: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_questions)
+
+        //get intent that was passed, get String
+        userName = intent.getStringExtra(Constants.USER_NAME)
 
         progressBar = findViewById(R.id.progressBar)
         tvProgressbar = findViewById(R.id.tvProgress)
@@ -101,12 +108,19 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                     //Here we will set the textviews to match the current question as
                     //long as the list contains questions
                     when{
-                        mCurrentPosition <= mQuestionsList!!.size ->{
+                        mCurrentPosition < mQuestionsList!!.size ->{
                             setQuestion()
                         }
 
                         else-> {
-                            Toast.makeText(this, "You Made it To the end", Toast.LENGTH_SHORT)
+                            //Once we reach this point, we have gone through all the questions
+                            //Create a new Intent and specify where and what you wish to send
+                            val intent = Intent(this, ResultActivity::class.java)
+                            intent.putExtra(Constants.USER_NAME,userName)
+                            intent.putExtra(Constants.CORRECT_ANSWERS, correctAnswers)
+                            intent.putExtra(Constants.TOTAL_QUESTIONS,mQuestionsList?.size)
+                            startActivity(intent)
+                            finish()
                         }
                     }
                 }else
@@ -119,6 +133,12 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                     {
                         answerView(mSelectedAnswer, R.drawable.wrong_answer_background)
                     }
+                    else
+                    {
+                        //the answer was correct
+                        correctAnswers++
+                    }
+                    answerView(question.correctAnswer,R.drawable.correct_answer_background)
                     mSelectedAnswer=-1
                     if(mCurrentPosition == mQuestionsList!!.size-1)
                     {

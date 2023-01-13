@@ -27,11 +27,12 @@ class MainActivity : AppCompatActivity() {
                 //intent states what action we wish to perform
                 //We must start it for it to work
                 val intent = Intent(this, QuizQuestionActivity::class.java)
+                //this allows me to send data to the next activity
+                intent.putExtra(Constants.USER_NAME, etxName.text.toString())
                 startActivity(intent)
-
                 //this will close the application and if we go back will
                 //start a new instance of the application
-                //finish()
+                finish()
             }
         }
 
